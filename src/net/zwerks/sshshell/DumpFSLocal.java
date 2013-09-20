@@ -13,14 +13,14 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UserInfo;
 
-public class SSHDumpFS {
+public class DumpFSLocal {
 
 	private String UserOnHost2Dump;
 	private String Host2Dump;
 	private Session openSession;
 	//private DumpFSStatistics myStatistics;
 	
-	public SSHDumpFS() {
+	public DumpFSLocal() {
 		// TODO Auto-generated constructor stub
 		
 		//Print out OS that CBB is running from
@@ -43,7 +43,7 @@ public class SSHDumpFS {
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		
 		//Initialize the FSDumper
-		SSHDumpFS myFSDumper= new SSHDumpFS();
+		DumpFSLocal myFSDumper= new DumpFSLocal();
 		myFSDumper.InitiateConnection("root", "", "192.168.1.150");
 		
 		myFSDumper.doPortForwardingL(54137, "127.0.0.1", 57314);
@@ -62,17 +62,12 @@ public class SSHDumpFS {
 		dd2netcatThread.start();
 		//myDD2Netcat.send();
 		
-		
 		myFSDumper.StartLocalNetCat(54137, myStatistics);
 		
 		//String stopCommand = "killall nc";
 		//myFSDumper.StopRemoteNetcat(stopCommand);
 		
 		//System.out.println("Still Sending ...");
-		
-		//long progFinishTime = System.currentTimeMillis();
-		//System.out.println("Total Application Run time: " + (progFinishTime - progStartTime));
-		//System.out.println("Total Application Run time: " + (progFinishTime - progStartTime));
 	}
 	
 	public void InitiateConnection(String username, String secret, String hostname){
