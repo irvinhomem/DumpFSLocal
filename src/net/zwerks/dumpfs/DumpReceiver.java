@@ -29,6 +29,7 @@ public class DumpReceiver implements Runnable {
     private String HDFSOutputPath;
     //private InputStream inStream;
     private DumpFSStatistics currStats;
+    private HashCreator myHashGen;
 
 	public DumpReceiver(String FileDumpDir, String DumpFileName, int listenPort, DumpFSStatistics myStatsCollector){
 		// TODO Auto-generated constructor stub
@@ -39,6 +40,7 @@ public class DumpReceiver implements Runnable {
 		this.connectedSock = null;
 		//this.inStream = null;
 		this.currStats = myStatsCollector;
+		this.myHashGen = new HashCreator(this.OutputPath+this.outputFilename);
 		
 		System.out.println("**********************************************************");
 		System.out.println("Dump Receiver Activated.");
@@ -162,6 +164,14 @@ public class DumpReceiver implements Runnable {
 				}
 		}
 		//}
+	        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        	System.out.println("+++++++++++++++++++++++++++ FILE HASHES ++++++++++++++++++++++++++++++");
+        	System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	        
+        	System.out.println("MD5 hash: " + this.myHashGen.generateHash("MD5"));
+        	System.out.println("SHA1 hash: " + this.myHashGen.generateHash("SHA1"));
+	        
+	        
 	        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         	System.out.println("+++++++++++++++++++++++++++ RUN STATISTICS +++++++++++++++++++++++++++");
         	System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");

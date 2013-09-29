@@ -36,5 +36,10 @@
     	<artifactId>hadoop-core</artifactId>
     	<version>1.2.0</version>
     </dependency>
+    <dependency>
+    	<groupId>org.bouncycastle</groupId>
+    	<artifactId>bcprov-jdk16</artifactId>
+    	<version>1.46</version>
+    </dependency>
   </dependencies>
 </project>
