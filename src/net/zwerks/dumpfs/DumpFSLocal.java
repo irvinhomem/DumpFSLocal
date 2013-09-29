@@ -45,16 +45,32 @@ public class DumpFSLocal {
 		//Initialize the FSDumper
 		DumpFSLocal myFSDumper= new DumpFSLocal();
 		myFSDumper.InitiateConnection("root", "", "192.168.1.150");
+		//myFSDumper.InitiateConnection("root", "abc123", "192.168.1.182");
+		//myFSDumper.InitiateConnection("root", "abc123", "192.168.0.104");
+		//myFSDumper.InitiateConnection("root", "", "192.168.0.104");
+		//myFSDumper.InitiateConnection("root", "admin", "192.168.0.104");
 		
 		myFSDumper.doPortForwardingL(54137, "127.0.0.1", 57314);
+		//myFSDumper.doPortForwardingL(54137, "localhost", 57314);
+		//myFSDumper.doPortForwardingL(54137, "192.168.1.182", 57314);
 		
 		//myFSDumper.StartLocalNetCat(54137);
 		
 		
 		//String CommandToExecute = "set|grep SSH";
+		//---->//For Dumping the Chumby
+		//String CommandToExecute = "dd if=/dev/mtdblock5 | gzip | nc -l -p 57314 -w 10";
+		String CommandToExecute = "dd if=/dev/mtdblock5 | nc -l -p 57314 -w 10"; //Without ZIPing
 		//---->//
-		String CommandToExecute = "dd if=/dev/mtdblock5 | gzip | nc -l -p 57314 -w 10";
+		//String CommandToExecute = "dd if=/dev/block/mmcblk0p22 | gzip | nc -l -p 57314 -w 10";	//MT4GS <<<---- /system
+		//String CommandToExecute = "dd if=/dev/block/mmcblk0p24 | gzip | nc -l -p 57314 -w 10";		//MT4GS <<<---- /cache
+		//String CommandToExecute = "dd if=/dev/block/mmcblk0p19 | gzip | nc -l -p 57314 -w 10";
+		//String CommandToExecute = "dd if=/dev/block/mmcblk0p19 | gzip | nc -l -p 57314 -w 10";
+		
 		//String CommandToExecute = "echo '1234567zxckhgjgh' | gzip | nc -l -p 57314 -w 10";
+		//String CommandToExecute = "echo '1234567zxckhgjgh' | nc -l -p 57314 -w 10";
+		//String CommandToExecute = "echo '1234567zxckhgjgh'";
+		//String CommandToExecute = "nc -l -p 57314 -w 350";
 				
 		//myFSDumper.StartRemoteDD2Netcat(CommandToExecute);
 		RemoteDD2Netcat myDD2Netcat = new RemoteDD2Netcat(CommandToExecute, myFSDumper.getOpenSession());
@@ -87,6 +103,7 @@ public class DumpFSLocal {
 			
 			//Open an SSH Session using the above parameters
 			Session session = jsch.getSession(this.UserOnHost2Dump, this.Host2Dump, 22);
+			//Session session = jsch.getSession(this.UserOnHost2Dump, this.Host2Dump, 35335);
 			
 			session.setPassword(secret);
 			
@@ -119,7 +136,8 @@ public class DumpFSLocal {
 	
 	public void StartLocalNetCat(int listenPort, DumpFSStatistics statsCollector){
 				
-		DumpReceiver dumpRcvr = new DumpReceiver(System.getProperty("user.dir") + this.getCurrOSPathFormat(), "myDumpFile.ida.gz", listenPort, statsCollector);
+		DumpReceiver dumpRcvr = new DumpReceiver(System.getProperty("user.dir") + this.getCurrOSPathFormat(),
+				"myDumpFile.ida.gz", listenPort, statsCollector);
 		Thread t = new Thread(dumpRcvr);
 		try{
 			t.sleep(1000);

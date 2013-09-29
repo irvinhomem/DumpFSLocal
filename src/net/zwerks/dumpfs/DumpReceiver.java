@@ -102,9 +102,12 @@ public class DumpReceiver implements Runnable {
 	                                
 	                bos = new BufferedOutputStream(fos);
 
-	                //System.out.println("Preparing to write");
-	                
+	                //System.out.println("Preparing to write: " + aByte.length); ////<<<------------- to be commented out
+	                // inputstream.read blocks until input data is available
 	                bytesRead = inStream.read(aByte, 0, aByte.length);
+	                
+	                //System.out.println("Bytes Read : " + bytesRead); ////<<<------------- to be commented out
+	                
 	                System.out.println("Incoming Bytes available: " + inStream.available());
 	                System.out.println("Preparing to write " + inStream.available() + " bytes ...");
 
@@ -125,8 +128,12 @@ public class DumpReceiver implements Runnable {
 	                        if(byteCounter % 1000000 == 0){		
 	                        	System.out.print(".");
 	                        	if ((byteCounter/1000000) % 2 == 0){
-	                        		System.out.print((int)byteCounter/1000000);
+	                        		int my50Counter = (int)byteCounter/1000000;
+	                        		System.out.print(my50Counter);
 	                        		//System.out.print(bytesRead);
+	                        		if(my50Counter % 50 == 0){
+	                        			System.out.println("|");
+	                        		}
 	                        	}
 	                        }
 	                        
