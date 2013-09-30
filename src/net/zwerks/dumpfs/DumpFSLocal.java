@@ -59,8 +59,8 @@ public class DumpFSLocal {
 		
 		//String CommandToExecute = "set|grep SSH";
 		//---->//For Dumping the Chumby
-		//String CommandToExecute = "dd if=/dev/mtdblock5 | gzip | nc -l -p 57314 -w 10";
-		String CommandToExecute = "dd if=/dev/mtdblock5 | nc -l -p 57314 -w 10"; //Without ZIPing
+		String CommandToExecute = "dd if=/dev/mtdblock5 | gzip | nc -l -p 57314 -w 10";
+		//String CommandToExecute = "dd if=/dev/mtdblock5 | nc -l -p 57314 -w 10"; 			//Without ZIPing
 		//---->//
 		//String CommandToExecute = "dd if=/dev/block/mmcblk0p22 | gzip | nc -l -p 57314 -w 10";	//MT4GS <<<---- /system
 		//String CommandToExecute = "dd if=/dev/block/mmcblk0p24 | gzip | nc -l -p 57314 -w 10";		//MT4GS <<<---- /cache
